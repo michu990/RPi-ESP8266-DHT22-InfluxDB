@@ -8,8 +8,8 @@
 #define DHTPIN 12
 #define DHTTYPE DHT22
 #define INFLUXDB_URL ""
-#define WIFI_SSID "T"
-#define WIFI_PASS "
+#define WIFI_SSID ""
+#define WIFI_PASS ""
 #define INFLUXDB_TOKEN ""
 #define INFLUXDB_ORG ""
 #define INFLUXDB_BUCKET ""
