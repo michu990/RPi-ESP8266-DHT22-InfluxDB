@@ -1,4 +1,4 @@
-# RPi-temperature-humidity-logger
+# Raspberry Pi based temperature and humidity logger using Grafana, Prometheus, Docker and Python
 
 ## Based on:
 * https://pimylifeup.com/raspberry-pi-humidity-sensor-dht22/
