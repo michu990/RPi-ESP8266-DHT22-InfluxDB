@@ -71,14 +71,23 @@ void loop() {
   Serial.println(" %");
 
   InfluxData sensor("DHT22");
-  sensor.addTag("Device", "ESP8266");
-  sensor.addTag("Sensor", "Temp");
-  sensor.addTag("Unit", "C");
-  sensor.addTag("Sensor2", "Hum");
-  sensor.addTag("Unit", "H");
+  //sensor.addTag("Device", "ESP8266");
+  //sensor.addTag("Sensor", "Temp");
+  //sensor.addTag("Unit", "C");
+  //sensor.addTag("Sensor2", "Hum");
+  //sensor.addTag("Unit", "H");
+  
+  sensor.addField("temperatureC", temperatureC);
+  sensor.addField("humidity", humid);
+  sensor.addField("temperatureF", tempf);
   //You can change the data being sent to influx either ºC or ºF here
   //row.addField("Temp", tempf);
   //row.addField("Hum", humid);
+
+  if (!client.writePoint(sensor)) {
+    Serial.print("InfluxDB write failed: ");
+    Serial.println(client.getLastErrorMessage());
+  }
   
 //  sensor.add(sensor);
   delay(1000);
