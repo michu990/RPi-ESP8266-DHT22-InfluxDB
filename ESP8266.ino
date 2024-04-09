@@ -17,7 +17,6 @@
 InfluxDBClient client(INFLUXDB_URL, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_TOKEN, InfluxDbCloud2CACert);
 
 ESP8266WiFiMulti WiFiMulti;
-//Influxdb influx(INFLUXDB_URL);
 
 DHT dht(DHTPIN, DHTTYPE);
 Point sensor("DHT22");
@@ -34,7 +33,6 @@ void setup() {
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
-//  influx.setDb("DHT22");
   if (client.validateConnection()) {
       Serial.print("Connected to InfluxDB: ");
       Serial.println(client.getServerUrl());
@@ -42,9 +40,6 @@ void setup() {
       Serial.print("InfluxDB connection failed: ");
       Serial.println(client.getLastErrorMessage());
     }
-
-   // sensor.addTag("device", DEVICE);
-   // sensor.addTag("SSID", WiFi.SSID());
 
   while(!Serial) { }
   
@@ -71,24 +66,14 @@ void loop() {
   Serial.println(" %");
 
   InfluxData sensor("DHT22");
-  //sensor.addTag("Device", "ESP8266");
-  //sensor.addTag("Sensor", "Temp");
-  //sensor.addTag("Unit", "C");
-  //sensor.addTag("Sensor2", "Hum");
-  //sensor.addTag("Unit", "H");
   
   sensor.addField("temperatureC", temperatureC);
   sensor.addField("humidity", humid);
   sensor.addField("temperatureF", tempf);
-  //You can change the data being sent to influx either ºC or ºF here
-  //row.addField("Temp", tempf);
-  //row.addField("Hum", humid);
 
   if (!client.writePoint(sensor)) {
     Serial.print("InfluxDB write failed: ");
     Serial.println(client.getLastErrorMessage());
   }
-  
-//  sensor.add(sensor);
   delay(1000);
 }
